@@ -1,33 +1,59 @@
-import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
-import { NavigationStackScreenProps, NavigationStackOptions } from 'react-navigation-stack'
+import React from 'react';
+import {View, StyleSheet, Text, FlatList} from 'react-native';
+import {
+  NavigationStackScreenProps,
+  NavigationStackOptions,
+  NavigationStackProp,
+} from 'react-navigation-stack';
+import SettingItemView from '../component/SettingItemView';
 
 export interface HomeScreenProps {
+  navigation:NavigationStackProp
 }
-export interface HomeScreenState {
-}
+export interface HomeScreenState {}
 
-export default class HomeScreen extends React.PureComponent<HomeScreenProps, HomeScreenState> {
-  public static navigationOptions = (props: NavigationStackScreenProps): NavigationStackOptions => {
-      return {
-          header: null
-      }
-  }
+const data = ['ArticleDetailScreen'];
+
+export default class HomeScreen extends React.PureComponent<
+  HomeScreenProps,
+  HomeScreenState
+> {
+  public static navigationOptions = (
+    props: NavigationStackScreenProps,
+  ): NavigationStackOptions => {
+    return {
+      headerTitle: 'ReactNative',
+    };
+  };
+
+  private navigation: NavigationStackProp;
+
   constructor(props: HomeScreenProps) {
     super(props);
+    const {navigation} = this.props;
+    this.navigation = navigation;
   }
+
+  private renderItem = ({item}) => {
+    return <SettingItemView title={item} onPress={() => {
+      this.navigation.navigate(item)
+    }} />;
+  };
 
   public render() {
     return (
       <View style={styles.container}>
-         <Text>HomeScreen Component</Text>
+        <FlatList
+          data={data}
+          renderItem={({item}) => this.renderItem({item})}
+        />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-    }
-})
+  container: {
+    flex: 1,
+  },
+});
