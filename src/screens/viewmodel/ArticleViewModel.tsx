@@ -92,7 +92,8 @@ export default class ArticleViewModel {
 
   public senPraise = async() => {
     // 模拟网络耗时操作
-    const result = await fetch('https://www.baidu.com')
+    // const result = await fetch('https://www.baidu.com')
+    const result = await fetch('https://github.com')
     const success = result.status == 200
     return {success}
   }

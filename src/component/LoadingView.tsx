@@ -10,6 +10,7 @@ import {
   NavigationStackScreenProps,
   NavigationStackOptions,
 } from 'react-navigation-stack';
+import Modal from 'react-native-modal';
 
 export interface LoadingViewProps {}
 export interface LoadingViewState {}
@@ -26,16 +27,24 @@ export default class LoadingView extends React.PureComponent<
     const width = Dimensions.get('window').width;
     const height = Dimensions.get('window').height;
     return (
-      <View style={[styles.container, {width, height}]}>
-        <ActivityIndicator size={'large'} color={'#FED337'} />
-      </View>
+      <Modal
+        animationIn={{ from: { opacity: 1 }, to: { opacity: 1 } }}
+        backdropColor={'#0000'}
+        style={[styles.container]}
+        isVisible={true}
+        >
+        <ActivityIndicator
+          size={'large'}
+          color={'#FEDD37'}
+          style={{backgroundColor: 'grey', padding: 4, borderRadius: 8}}
+        />
+      </Modal>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },

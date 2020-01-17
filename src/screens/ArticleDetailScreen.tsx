@@ -90,12 +90,12 @@ export default class ArticleDetailScreen extends React.PureComponent<
   };
 
   private onPraisePress = async (index: number, comment: Comment) => {
+    this.setState({loading: true});
     console.log('onPraisePress:index=' + index);
     const {success} = await this.commentViewModel.senPraise();
     console.log('onPraisePress:comment=' + JSON.stringify(comment));
     console.log('onPraisePress:success:' + success);
     const {data, refresh} = this.state;
-    this.setState({loading: true});
     if (success) {
       comment.praise += 1;
       this.setState({data: data, loading: false, refresh: refresh + 1});
@@ -125,7 +125,7 @@ export default class ArticleDetailScreen extends React.PureComponent<
     const {source} = this.data;
     const {loading, webLoadSuccess} = this.state;
     const {data, refresh} = this.state;
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>render:');
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>render:loading='+loading);
     if (data) {
       data.map(item => {
         console.log('id=' + item.id + ',praise=' + item.praise);
@@ -133,6 +133,7 @@ export default class ArticleDetailScreen extends React.PureComponent<
     }
     return (
       <View style={styles.container}>
+        
         <ScrollView
           style={styles.scrollView}
           onMomentumScrollEnd={this.onMomentumScrollEnd}
@@ -140,8 +141,7 @@ export default class ArticleDetailScreen extends React.PureComponent<
           ref={scrollView => {
             this.scrollView = scrollView;
           }}>
-          {loading && <LoadingView />}
-
+          
           <AutoHeightWebView
             onSizeUpdated={size => {
               this.onWebSizeChange(size);
@@ -157,6 +157,7 @@ export default class ArticleDetailScreen extends React.PureComponent<
           />
         </ScrollView>
         {webLoadSuccess && <BottomStatusBar onItemPress={this.onItemPress} />}
+        {loading && <LoadingView />}
       </View>
     );
   }
