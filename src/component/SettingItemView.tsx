@@ -20,6 +20,7 @@ export default class SettingItemView extends React.PureComponent<
     return (
       <View style={styles.container}>
         <TouchableOpacity
+        style={{width:'100%'}}
           onPress={() => {
             if (onPress) {
               onPress();
@@ -34,13 +35,21 @@ export default class SettingItemView extends React.PureComponent<
 
 const styles = StyleSheet.create({
   container: {
-    height: 44,
+    height: 40,
     flexDirection: 'row',
-    paddingHorizontal:15,
-    alignItems:'center'
+    marginTop:10,
+    marginHorizontal:10,
+    paddingLeft:10,
+    borderRadius:4,
+    alignItems:'center',
+    backgroundColor:'grey',
   },
   title:{
       fontSize:17,
-      color:'#000000'
+      color:'#000000',
+      width:'100%',
+      textAlign:'center',
+      lineHeight:40,
+      
   }
 });

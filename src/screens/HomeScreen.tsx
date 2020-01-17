@@ -8,11 +8,11 @@ import {
 import SettingItemView from '../component/SettingItemView';
 
 export interface HomeScreenProps {
-  navigation:NavigationStackProp
+  navigation: NavigationStackProp;
 }
 export interface HomeScreenState {}
 
-const data = ['ArticleDetailScreen'];
+const data = ['ArticleDetailScreen', 'UmengDemoScreen'];
 
 export default class HomeScreen extends React.PureComponent<
   HomeScreenProps,
@@ -35,9 +35,14 @@ export default class HomeScreen extends React.PureComponent<
   }
 
   private renderItem = ({item}) => {
-    return <SettingItemView title={item} onPress={() => {
-      this.navigation.navigate(item)
-    }} />;
+    return (
+      <SettingItemView
+        title={item}
+        onPress={() => {
+          this.navigation.navigate(item);
+        }}
+      />
+    );
   };
 
   public render() {
